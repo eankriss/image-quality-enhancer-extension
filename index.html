@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Image Credit Watermark</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="app">
+<header class="header">
+  <div class="brand">
+    <div class="brand-icon">©</div>
+    <div>
+      <div class="eyebrow">FULL-PAGE IMAGE TOOL</div>
+      <h1>Image Credit Watermark</h1>
+      <p>Add visible source credits to an image, position them precisely, and export a finished copy.</p>
+    </div>
+  </div>
+  <button id="themeToggle" class="icon-btn" type="button"><span class="light-icon">☀</span><span class="dark-icon">☾</span></button>
+</header>
+
+<section class="workspace">
+<aside class="sidebar card">
+  <div class="section-title"><span class="step">1</span><div><h2>Upload image</h2><p>JPG, PNG, WebP, GIF, AVIF, or BMP.</p></div></div>
+  <label class="upload-zone">
+    <input id="fileInput" type="file" accept="image/*">
+    <div class="upload-icon">↑</div><strong>Choose image</strong><span id="fileMeta">No image selected</span>
+  </label>
+
+  <div class="divider"></div>
+  <div class="section-title"><span class="step">2</span><div><h2>Credit details</h2><p>Use the actual source and only add rights claims you can substantiate.</p></div></div>
+  <label class="field"><span>Source / credit</span><input id="sourceInput" type="text" placeholder="Example: Getty Images / Photographer Name"></label>
+  <label class="field"><span>Credit prefix</span><select id="prefixSelect"><option value="Image credit: " selected>Image credit:</option><option value="Source: ">Source:</option><option value="Photo: ">Photo:</option><option value="Courtesy of: ">Courtesy of:</option><option value="">No prefix</option></select></label>
+  <label class="field"><span>Optional rights note</span><input id="rightsInput" type="text" placeholder="Example: Used with permission"><small>Only use “licensed” or “used with permission” when true.</small></label>
+
+  <div class="divider"></div>
+  <div class="section-title"><span class="step">3</span><div><h2>Watermark style</h2><p>Customize how the credit appears.</p></div></div>
+  <div class="grid2">
+    <label class="field"><span>Font size</span><input id="fontSize" type="number" min="8" max="120" value="24"></label>
+    <label class="field"><span>Padding</span><input id="paddingInput" type="number" min="0" max="80" value="10"></label>
+  </div>
+  <div class="grid2">
+    <label class="field"><span>Text color</span><input id="textColor" type="color" value="#ffffff"></label>
+    <label class="field"><span>Background</span><input id="bgColor" type="color" value="#000000"></label>
+  </div>
+  <label class="range-field"><div><span>Background opacity</span><strong id="bgOpacityValue">55%</strong></div><input id="bgOpacity" type="range" min="0" max="100" value="55"></label>
+  <label class="range-field"><div><span>Watermark opacity</span><strong id="watermarkOpacityValue">100%</strong></div><input id="watermarkOpacity" type="range" min="20" max="100" value="100"></label>
+  <label class="check-row"><input id="twoLine" type="checkbox" checked><span>Put optional rights note on a second line</span></label>
+
+  <div class="divider"></div>
+  <div class="section-title"><span class="step">4</span><div><h2>Position</h2><p>Choose a preset or drag the watermark directly in the preview.</p></div></div>
+  <div class="position-grid" id="positionGrid">
+    <button data-pos="tl" type="button">↖</button><button data-pos="tc" type="button">↑</button><button data-pos="tr" type="button">↗</button>
+    <button data-pos="ml" type="button">←</button><button data-pos="mc" type="button">•</button><button data-pos="mr" type="button">→</button>
+    <button data-pos="bl" type="button">↙</button><button data-pos="bc" type="button">↓</button><button data-pos="br" class="active" type="button">↘</button>
+  </div>
+  <label class="range-field"><div><span>Edge margin</span><strong id="marginValue">24 px</strong></div><input id="marginInput" type="range" min="0" max="150" value="24"></label>
+
+  <div class="divider"></div>
+  <div class="section-title"><span class="step">5</span><div><h2>Export</h2><p>Original dimensions are preserved.</p></div></div>
+  <div class="grid2">
+    <label class="field"><span>File type</span><select id="formatSelect"><option value="image/png">PNG</option><option value="image/jpeg" selected>JPEG</option><option value="image/webp">WebP</option></select></label>
+    <label class="field" id="qualityField"><span>Quality</span><select id="qualitySelect"><option value="0.85">85%</option><option value="0.92" selected>92%</option><option value="0.96">96%</option><option value="1">100%</option></select></label>
+  </div>
+  <button id="exportBtn" class="primary-btn full" type="button" disabled>Export Image with Credit</button>
+</aside>
+
+<section class="preview card">
+  <div class="preview-head"><div><h2>Live preview</h2><p id="previewMeta">Upload an image to begin.</p></div><span class="preview-hint">Drag directly on the credit box to fine-tune its position. Preview and export use the same renderer.</span></div>
+  <div id="emptyState" class="empty-state"><div class="empty-icon">▧</div><h3>No image loaded</h3><p>Choose an image from the left panel.</p></div>
+  <div id="stageWrap" class="stage-wrap hidden"><div id="stage" class="stage"><canvas id="previewCanvas" class="preview-canvas" aria-label="Image preview with credit watermark"></canvas></div></div>
+  <div class="notice">This tool adds a visible credit label only. It does not create, verify, or prove a license. Make sure any rights statement you enter is accurate.</div>
+</section>
+</section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
